@@ -175,7 +175,7 @@ public class ChartDataManage {
         FilterTreeObj fieldCustomFilter = view.getCustomFilter();
         List<ChartViewFieldDTO> drill = new ArrayList<>(view.getDrillFields());
 
-        DatasetGroupInfoDTO table = datasetGroupManage.getDatasetGroupInfoDTO(view.getTableId(), null);
+        DatasetGroupInfoDTO table = getDatasetGroupInfoDTO(view);
         if (table == null) {
             DEException.throwException(ResultCode.DATA_IS_WRONG.code(), Translator.get("i18n_no_ds"));
         }
@@ -807,6 +807,10 @@ public class ChartDataManage {
         chartViewDTO.setTotalPage(totalPage);
         chartViewDTO.setTotalItems(totalItems);
         return chartViewDTO;
+    }
+
+    private DatasetGroupInfoDTO getDatasetGroupInfoDTO(ChartViewDTO view) throws Exception {
+        return datasetGroupManage.get(view.getTableId(), null);
     }
 
     private List<ChartViewFieldDTO> getSizeField(ChartViewDTO view) throws Exception {
